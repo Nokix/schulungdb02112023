@@ -11,46 +11,18 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 @Component
-public class Doctor implements BeanNameAware {
-    @Override
-    public void setBeanName(String s) {
-        System.out.println("this bean is named: " + s);
-    }
+public class Doctor {
 //    @Autowired
-
     private String name;
 //    @Autowired
-//    @Qualifier("handyman")
+    private Nurse nurse;
 
-    private Helper helper;
-
-
-    public Doctor(String name, @Value("#{beanConfig.getHelper()}") Helper helper) {
+    public Doctor(@Value("Greta") String name, Nurse nurse) {
         this.name = name;
-        this.helper = helper;
+        this.nurse = nurse;
     }
 
     public String assist() {
-        return "Doctor " + this.name + " is helping. " + helper.assist();
-    }
-//    @Autowired
-
-    public void setName(String name) {
-        this.name = name;
-    }
-//    @Autowired
-
-    public void setHelper(@Qualifier("handyman") Helper helper) {
-        this.helper = helper;
-    }
-
-    @PostConstruct
-    public void afterSetup() {
-        System.out.println("I am ready!");
-    }
-
-    @PreDestroy
-    public void timeToLeave() {
-        System.out.println("Good bye cruel world...");
+        return "Doctor " + this.name + " is helping. " + nurse.assist();
     }
 }

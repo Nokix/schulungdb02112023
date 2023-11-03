@@ -5,13 +5,19 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
 @Component
 @Aspect
 public class UpdateAspect {
 
-    @After("within(ShoppingCart)")
+    @Pointcut("within(ShoppingCart)")
+    void allShoppingCartMethods() {
+    }
+
+    @After("allShoppingCartMethods()")
+//    @After("execution(* ShoppingCart.*Item(..))")
     void update(JoinPoint joinPoint) {
         ShoppingCart shoppingCart = (ShoppingCart) joinPoint.getTarget();
 
@@ -19,8 +25,7 @@ public class UpdateAspect {
         shoppingCart.updatePriceOfAll();
     }
 
-    @Around("execution(ShoppingCart ShoppingCart.addItem(..))" +
-            " && args(item)")
+    @Around("allShoppingCartMethods() && args(item)")
     Object dontAllowExpensiveItems(
             ProceedingJoinPoint proceedingJoinPoint,
             Item item) throws Throwable {

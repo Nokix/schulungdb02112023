@@ -3,9 +3,9 @@ package db.schulung.hospital;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.*;
 
-@Configuration
-@ComponentScan
-@PropertySource("classpath:application.properties")
+//@Configuration
+//@ComponentScan
+//@PropertySource("classpath:application.properties")
 public class BeanConfig {
 
     @Bean

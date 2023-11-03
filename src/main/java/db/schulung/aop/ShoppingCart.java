@@ -3,6 +3,7 @@ package db.schulung.aop;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
 
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,12 +14,14 @@ public class ShoppingCart {
     private int countOfAll;
     private List<Item> cart = new ArrayList<>();
 
+    @TimeMe(ChronoUnit.MILLIS)
     public ShoppingCart addItem(Item item) {
         if(item != null)
             cart.add(item);
         return this;
     }
 
+    @TimeMe
     public ShoppingCart removeItem(Item item) {
         cart.remove(item);
         return this;
